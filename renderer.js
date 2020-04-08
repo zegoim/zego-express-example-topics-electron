@@ -5,6 +5,14 @@
 // selectively enable features needed in the rendering
 // process.
 
+const {crashReporter} = require('electron')
+crashReporter.start({
+  productName:"zego-express-example-topics-electron",
+  companyName:"zego.im",
+  uploadToServer: false,
+  submitURL:"http://zego.im"
+});
+
 const zgClient = require('zego-express-engine-electron/ZegoExpressEngine');
 const zgDefines = require('zego-express-engine-electron/ZegoExpressDefines');
 console.log("ZegoExpressEngine version:", zgClient.getVersion())

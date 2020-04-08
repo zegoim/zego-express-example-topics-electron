@@ -2,12 +2,6 @@
 const {app, BrowserWindow, crashReporter} = require('electron')
 var path = require("path");
 app.setPath("temp", path.resolve('./crash_temp'))
-crashReporter.start({
-  productName:"topic",
-  companyName:"zego.im",
-  uploadToServer: false,
-  submitURL:""
-});
 
 function createWindow () {
   // Create the browser window.
