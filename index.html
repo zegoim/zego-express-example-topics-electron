@@ -4,9 +4,11 @@
 <head>
   <meta charset="UTF-8">
   <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+  <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
+  <!-- <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
   <title>zego-express-example-quick-start</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="./node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -71,6 +73,10 @@
 
 
   <!-- You can also require other files to run in this process -->
+  <script>
+    window.$ = window.jQuery = require('./node_modules/jquery/dist/jquery.min.js');
+    require('./node_modules/bootstrap/dist/js/bootstrap.min.js');
+  </script>
   <script src="./renderer.js"></script>
 </body>
 
