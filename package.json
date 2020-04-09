@@ -24,5 +24,15 @@
   "devDependencies": {
     "electron": "^5.0.8",
     "electron-builder": "^22.4.1"
+  },
+  "build": {
+    "mac": {
+      "entitlements": "build/entitlements.mac.plist",
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "extendInfo": {
+        "NSMicrophoneUsageDescription": "I need access to your microphone to send your voice to others in the session room.",
+        "NSCameraUsageDescription": "I need access to your camera so that others can see you in the session room."
+      }
+    }
   }
 }
