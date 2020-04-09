@@ -4,7 +4,8 @@
   "description": "A minimal Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "dist": "electron-builder"
   },
   "keywords": [
     "Electron",
@@ -13,11 +14,15 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "zego.im",
+  "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.4.1",
+    "jquery": "^3.4.1",
+    "zego-express-engine-electron": "latest"
+  },
+  "devDependencies": {
     "electron": "^5.0.8",
-    "jquery": "^3.4.1"
+    "electron-builder": "^22.4.1"
   }
 }

@@ -4,3 +4,4 @@ node_modules/
 electron_libs_out/
 electron_symbol_out/
 zego-express-example-topics-electron Crashes/
+dist/
