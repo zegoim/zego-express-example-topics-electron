@@ -19,7 +19,7 @@
   "dependencies": {
     "bootstrap": "^3.4.1",
     "jquery": "^3.4.1",
-    "zego-express-engine-electron": "latest"
+    "zego-express-engine-electron": "^0.5.14"
   },
   "devDependencies": {
     "electron": "^5.0.8",

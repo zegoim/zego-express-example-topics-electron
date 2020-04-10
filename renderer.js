@@ -13,9 +13,9 @@ crashReporter.start({
   submitURL:"http://zego.im"
 });
 
-const zgClient = window.require('zego-express-engine-electron/ZegoExpressEngine');
+const zgEngine = window.require('zego-express-engine-electron/ZegoExpressEngine');
 const zgDefines = window.require('zego-express-engine-electron/ZegoExpressDefines');
-console.log("ZegoExpressEngine version:", zgClient.getVersion())
+console.log("ZegoExpressEngine version:", zgEngine.getVersion())
 
 const initButton = document.getElementById("initButton");
 const uninitButton = document.getElementById("uninitButton");
@@ -40,64 +40,62 @@ let ThePlayStreamID = ""
 
 initButton.onclick = () => {
     zegoauth = require("./zegoauth")
-    zgClient.init(
+    zgEngine.init(
         appID = zegoauth.appID,
         appSign = zegoauth.appSign,
         isTestEnv = true,
         scenario = 0
     ).then(() => {
-        zgClient.setDebugVerbose(true, zgDefines.ZegoLanguage.Chinese);
+        zgEngine.setDebugVerbose(true, zgDefines.ZegoLanguage.Chinese);
     }).catch((e) => {
         console.log(e)
     });
 }
 
 uninitButton.onclick = () => {
-    zgClient.uninit();
+    zgEngine.uninit();
 }
 
 loginButton.onclick = () => {
     TheRoomID = document.getElementById("roomIDInput").value
     TheUserID = document.getElementById("userIDInput").value
     TheUserName = document.getElementById("userNameInput").value
-    zgClient.loginRoom(TheRoomID, { userID: TheUserID, userName: TheUserName });
+    zgEngine.loginRoom(TheRoomID, { userID: TheUserID, userName: TheUserName });
 }
 
 logoutButton.onclick = () => {
-    zgClient.logoutRoom(TheRoomID);
+    zgEngine.logoutRoom(TheRoomID);
 }
 
 startPreviewButton.onclick = () => {
     let localCanvas = document.getElementById("localCanvas");
-    let view = {
-        canvas: localCanvas,
-    }
-    zgClient.startPreview(view);
+    zgEngine.startPreview({
+        canvas: localCanvas
+    });
 }
 
 stopPreviewButton.onclick = () => {
-    zgClient.stopPreview();
+    zgEngine.stopPreview();
 }
 
 startPublishButton.onclick = () => {
     ThePublishStreamID = document.getElementById("publishStreamIDInput").value
-    zgClient.startPublishingStream(ThePublishStreamID);
+    zgEngine.startPublishingStream(ThePublishStreamID);
 }
 
 stopPublishButton.onclick = () => {
-    zgClient.stopPublishingStream();
+    zgEngine.stopPublishingStream();
 }
 
 startPlayButton.onclick = () => {
     let remoteCanvas = document.getElementById("remoteCanvas");
-    let view = {
-        canvas: remoteCanvas
-    }
     ThePlayStreamID = document.getElementById("playStreamIDInput").value
-    zgClient.startPlayingStream(ThePlayStreamID, view);
+    zgEngine.startPlayingStream(ThePlayStreamID, {
+        canvas: remoteCanvas
+    });
 }
 
 stopPlayButton.onclick = () => {
-    zgClient.stopPlayingStream(ThePlayStreamID);
+    zgEngine.stopPlayingStream(ThePlayStreamID);
 }
 
