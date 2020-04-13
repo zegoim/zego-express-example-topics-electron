@@ -25,6 +25,7 @@ const logoutButton = document.getElementById("logoutButton");
 
 const startPreviewButton = document.getElementById("startPreviewButton");
 const stopPreviewButton = document.getElementById("stopPreviewButton");
+const setVideoMirrorModeButton = document.getElementById("setVideoMirrorModeButton");
 
 const startPublishButton = document.getElementById("startPublishButton");
 const stopPublishButton = document.getElementById("stopPublishButton");
@@ -76,6 +77,13 @@ startPreviewButton.onclick = () => {
 
 stopPreviewButton.onclick = () => {
     zgEngine.stopPreview();
+}
+
+var VideoMirrorMode = 0;
+setVideoMirrorModeButton.onclick = ()=>{
+    VideoMirrorMode = (VideoMirrorMode+1)%4
+    console.log(VideoMirrorMode)
+    zgEngine.setVideoMirrorMode(VideoMirrorMode)
 }
 
 startPublishButton.onclick = () => {
