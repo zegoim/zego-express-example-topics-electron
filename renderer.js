@@ -68,11 +68,14 @@ logoutButton.onclick = () => {
     zgEngine.logoutRoom(TheRoomID);
 }
 
+var PreviewViewMode = 0;
 startPreviewButton.onclick = () => {
     let localCanvas = document.getElementById("localCanvas");
     zgEngine.startPreview({
-        canvas: localCanvas
+        canvas: localCanvas,
+        viewMode: PreviewViewMode
     });
+    PreviewViewMode = (PreviewViewMode+1)%3;
 }
 
 stopPreviewButton.onclick = () => {
@@ -81,9 +84,9 @@ stopPreviewButton.onclick = () => {
 
 var VideoMirrorMode = 0;
 setVideoMirrorModeButton.onclick = ()=>{
-    VideoMirrorMode = (VideoMirrorMode+1)%4
     console.log(VideoMirrorMode)
     zgEngine.setVideoMirrorMode(VideoMirrorMode)
+    VideoMirrorMode = (VideoMirrorMode+1)%4
 }
 
 startPublishButton.onclick = () => {
