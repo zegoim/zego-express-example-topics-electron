@@ -20,10 +20,11 @@
   "dependencies": {
     "bootstrap": "^3.4.1",
     "jquery": "^3.5.0",
-    "zego-express-engine-electron": "^0.7.0"
+    "ossr": "^1.0.9",
+    "zego-express-engine-electron": "^0.10.0-23"
   },
   "devDependencies": {
-    "electron": "^5.0.8",
+    "electron": "^5.0.13",
     "electron-builder": "^22.4.1"
   },
   "build": {

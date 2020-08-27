@@ -33,6 +33,14 @@ const stopPublishButton = document.getElementById("stopPublishButton");
 const startPlayButton = document.getElementById("startPlayButton");
 const stopPlayButton = document.getElementById("stopPlayButton");
 
+const createMediaPlayerButton = document.getElementById("createMediaPlayerButton");
+const destroyMediaPlayerButton = document.getElementById("destroyMediaPlayerButton");
+const loadResourceButton = document.getElementById("loadResourceButton");
+const startButton = document.getElementById("startButton");
+const stopButton  = document.getElementById("stopButton");
+const pauseButton = document.getElementById("pauseButton");
+const resumeButton = document.getElementById("resumeButton");
+
 let TheRoomID = "";
 let TheUserID = "";
 let TheUserName = "";
@@ -109,4 +117,55 @@ startPlayButton.onclick = () => {
 stopPlayButton.onclick = () => {
     zgEngine.stopPlayingStream(ThePlayStreamID);
 }
+
+var mp = null;
+createMediaPlayerButton.onclick = ()=>{
+    if(mp){
+        console.log("this is mediaPlayer already");
+        return;
+    }
+    mp = zgEngine.createMediaPlayer();
+    if(mp){
+        mp.on("onMediaPlayerStateUpdate", (param)=>{
+            console.log(`onMediaPlayerStateUpdate: state=${param.state} errorCode=${param.errorCode}`);
+        })
+    }
+    else{
+        console.log("createMediaPlayer failed");
+    }
+}
+
+destroyMediaPlayerButton.onclick = ()=> {
+    zgEngine.destroyMediaPlayer(mp);
+    mp = null;
+}
+
+loadResourceButton.onclick = ()=>{
+    mp.loadResource("C:/Users/Admin/Desktop/test.mp4").then(errorCode=>{
+        console.log("loadResource result ", errorCode);
+    }).catch(error=>{
+        console.log("loadResouce error:", error);
+    })
+}
+
+startButton.onclick = () =>{
+    let mediaPlayerCanvas = document.getElementById("mediaPlayerCanvas");
+    mp.setPlayerView({
+        canvas: mediaPlayerCanvas,
+    });
+    mp.start();
+}
+
+stopButton.onclick = () =>{
+    mp.stop();
+}
+
+pauseButton.onclick = () =>{
+    mp.pause();
+}
+
+resumeButton.onclick = () =>{
+    mp.resume();
+}
+
 
