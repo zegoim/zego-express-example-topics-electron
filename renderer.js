@@ -25,7 +25,6 @@ const logoutButton = document.getElementById("logoutButton");
 
 const startPreviewButton = document.getElementById("startPreviewButton");
 const stopPreviewButton = document.getElementById("stopPreviewButton");
-const setVideoMirrorModeButton = document.getElementById("setVideoMirrorModeButton");
 
 const startPublishButton = document.getElementById("startPublishButton");
 const stopPublishButton = document.getElementById("stopPublishButton");
@@ -68,25 +67,15 @@ logoutButton.onclick = () => {
     zgEngine.logoutRoom(TheRoomID);
 }
 
-var PreviewViewMode = 0;
 startPreviewButton.onclick = () => {
     let localCanvas = document.getElementById("localCanvas");
     zgEngine.startPreview({
         canvas: localCanvas,
-        viewMode: PreviewViewMode
     });
-    PreviewViewMode = (PreviewViewMode+1)%3;
 }
 
 stopPreviewButton.onclick = () => {
     zgEngine.stopPreview();
-}
-
-var VideoMirrorMode = 0;
-setVideoMirrorModeButton.onclick = ()=>{
-    console.log(VideoMirrorMode)
-    zgEngine.setVideoMirrorMode(VideoMirrorMode)
-    VideoMirrorMode = (VideoMirrorMode+1)%4
 }
 
 startPublishButton.onclick = () => {
