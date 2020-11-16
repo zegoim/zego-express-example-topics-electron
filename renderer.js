@@ -5,16 +5,20 @@
 // selectively enable features needed in the rendering
 // process.
 
-const {crashReporter} = require('electron')
+const { crashReporter } = require('electron')
 crashReporter.start({
-  productName:"zego-express-example-topics-electron",
-  companyName:"zego.im",
-  uploadToServer: false,
-  submitURL:"http://zego.im"
+    productName: "zego-express-example-topics-electron",
+    companyName: "zego.im",
+    uploadToServer: false,
+    submitURL: "http://zego.im"
 });
 
 const zgEngine = window.require('zego-express-engine-electron/ZegoExpressEngine');
 const zgDefines = window.require('zego-express-engine-electron/ZegoExpressDefines');
+
+const zgScreenCapture = window.require('zego-express-engine-electron-plugin-screen-capture').ZegoExpressPluginScreenCaptureInstance;
+const zgScreenCaptureWindowMode = window.require('zego-express-engine-electron-plugin-screen-capture').ZegoExpressPluginScreenCaptureWindowMode;
+
 console.log("ZegoExpressEngine version:", zgEngine.getVersion())
 
 const initButton = document.getElementById("initButton");
@@ -32,6 +36,9 @@ const stopPublishButton = document.getElementById("stopPublishButton");
 const startPlayButton = document.getElementById("startPlayButton");
 const stopPlayButton = document.getElementById("stopPlayButton");
 
+const captureWindowButton = document.getElementById("captureWindowButton");
+const captureScreenButton = document.getElementById("captureScreenButton");
+
 let TheRoomID = "";
 let TheUserID = "";
 let TheUserName = "";
@@ -47,6 +54,15 @@ initButton.onclick = () => {
         scenario = 0
     ).then(() => {
         zgEngine.setDebugVerbose(true, zgDefines.ZegoLanguage.Chinese);
+
+        // init screen capture
+        zgScreenCapture.init()
+        zgScreenCapture.setFPS(5);
+
+        // publish video-data captured
+        zgEngine.enableCustomVideoCapture(true, zgDefines.ZegoPublishChannel.Main);
+        zgScreenCapture.enablePublishVideo(true, zgDefines.ZegoPublishChannel.Main);
+
     }).catch((e) => {
         console.log(e)
     });
@@ -54,6 +70,7 @@ initButton.onclick = () => {
 
 uninitButton.onclick = () => {
     zgEngine.uninit();
+    zgScreenCapture.uninit();
 }
 
 loginButton.onclick = () => {
@@ -99,3 +116,27 @@ stopPlayButton.onclick = () => {
     zgEngine.stopPlayingStream(ThePlayStreamID);
 }
 
+captureWindowButton.onclick = () => {
+    // select a window as capture target
+    let windowList = zgScreenCapture.enumWindowList();
+    let firstWindow = windowList[0];
+    console.log("capture window: ", JSON.stringify(firstWindow));
+    zgScreenCapture.setTargetWindow(firstWindow.handle);
+
+    // set capture params
+    zgScreenCapture.setTargetWindowMode(zgScreenCaptureWindowMode.ScreenCaptureWindowModeNormal);
+
+    // start capture
+    zgScreenCapture.startCapture();
+}
+
+captureScreenButton.onclick = () => {
+    // select a window as capture target
+    let screenList = zgScreenCapture.enumScreenList();
+    let firstScreen = screenList[0];
+    console.log("capture screen: ", JSON.stringify(firstScreen));
+    zgScreenCapture.setTargetWindow(firstScreen.screenID);
+
+    // start capture
+    zgScreenCapture.startCapture();
+}
