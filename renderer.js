@@ -131,11 +131,11 @@ captureWindowButton.onclick = () => {
 }
 
 captureScreenButton.onclick = () => {
-    // select a window as capture target
+    // select a screen as capture target
     let screenList = zgScreenCapture.enumScreenList();
     let firstScreen = screenList[0];
     console.log("capture screen: ", JSON.stringify(firstScreen));
-    zgScreenCapture.setTargetWindow(firstScreen.screenID);
+    zgScreenCapture.setTargetScreen(firstScreen.screenID);
 
     // start capture
     zgScreenCapture.startCapture();
