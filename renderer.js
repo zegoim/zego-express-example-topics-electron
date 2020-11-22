@@ -17,7 +17,7 @@ const zgEngine = window.require('zego-express-engine-electron/ZegoExpressEngine'
 const zgDefines = window.require('zego-express-engine-electron/ZegoExpressDefines');
 
 const zgScreenCapture = window.require('zego-express-engine-electron-plugin-screen-capture').ZegoExpressPluginScreenCaptureInstance;
-const zgScreenCaptureWindowMode = window.require('zego-express-engine-electron-plugin-screen-capture').ZegoExpressPluginScreenCaptureWindowMode;
+const zgScreenCaptureLogLevel = window.require('zego-express-engine-electron-plugin-screen-capture').ZegoExpressPluginScreenCaptureLogLevel;
 
 console.log("ZegoExpressEngine version:", zgEngine.getVersion())
 
@@ -56,7 +56,8 @@ initButton.onclick = () => {
         zgEngine.setDebugVerbose(true, zgDefines.ZegoLanguage.Chinese);
 
         // init screen capture
-        zgScreenCapture.init()
+        zgScreenCapture.init();
+        zgScreenCapture.setLogConfig(zgScreenCaptureLogLevel.LogLevelDebug, '.');
         zgScreenCapture.setFPS(5);
 
         // publish video-data captured
@@ -117,24 +118,37 @@ stopPlayButton.onclick = () => {
 }
 
 captureWindowButton.onclick = () => {
-    // select a window as capture target
-    let windowList = zgScreenCapture.enumWindowList();
-    let firstWindow = windowList[0];
-    console.log("capture window: ", JSON.stringify(firstWindow));
-    zgScreenCapture.setTargetWindow(firstWindow.handle);
+    // enum window thumbnail
+    let windowThumbnailList = await zgScreenCapture.enumWindowThumbnail();
+    console.log("windowThumbnailList: ", windowThumbnailList)
 
-    // set capture params
-    zgScreenCapture.setTargetWindowMode(zgScreenCaptureWindowMode.ScreenCaptureWindowModeNormal);
+    /**
+        let imgSrc = firstWindow.imageThumbnail != null ? firstWindow.imageThumbnail.png: firstWindow.iconThumbnail.png
+        document.getElementById("windowThumbnail").setAttribute('src', "data:image/png;base64," + imgSrc)
+     */
+    
+
+    // select a window as capture target
+    let firstWindow = windowThumbnailList[0];
+    console.log("set target capture window: ", firstWindow);
+    zgScreenCapture.setTargetWindow(firstWindow.handle);
 
     // start capture
     zgScreenCapture.startCapture();
 }
 
 captureScreenButton.onclick = () => {
+    // enum screen thumbnail
+    let screenThumbnailList = await zgScreenCapture.enumScreenThumbnail();
+    console.log("screenThumbnailList: ", screenThumbnailList)
+
+    /**
+        document.getElementById("screenThumbnail").setAttribute('src', "data:image/png;base64," + firstScreen.imageThumbnail.png)
+     */
+
     // select a screen as capture target
-    let screenList = zgScreenCapture.enumScreenList();
-    let firstScreen = screenList[0];
-    console.log("capture screen: ", JSON.stringify(firstScreen));
+    let firstScreen = screenThumbnailList[0];
+    console.log("set target capture screen: ", firstScreen);
     zgScreenCapture.setTargetScreen(firstScreen.screenID);
 
     // start capture
