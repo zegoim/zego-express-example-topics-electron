@@ -117,7 +117,7 @@ stopPlayButton.onclick = () => {
     zgEngine.stopPlayingStream(ThePlayStreamID);
 }
 
-captureWindowButton.onclick = () => {
+captureWindowButton.onclick = async () => {
     // enum window thumbnail
     let windowThumbnailList = await zgScreenCapture.enumWindowThumbnail();
     console.log("windowThumbnailList: ", windowThumbnailList)
@@ -137,7 +137,7 @@ captureWindowButton.onclick = () => {
     zgScreenCapture.startCapture();
 }
 
-captureScreenButton.onclick = () => {
+captureScreenButton.onclick = async () => {
     // enum screen thumbnail
     let screenThumbnailList = await zgScreenCapture.enumScreenThumbnail();
     console.log("screenThumbnailList: ", screenThumbnailList)
