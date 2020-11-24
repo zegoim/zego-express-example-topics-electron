@@ -21,7 +21,7 @@
     "bootstrap": "^3.4.1",
     "jquery": "^3.5.0",
     "zego-express-engine-electron": "^0.18.1-65",
-    "zego-express-engine-electron-plugin-screen-capture": "^0.2.0-19"
+    "zego-express-engine-electron-plugin-screen-capture": "^0.2.1-20"
   },
   "devDependencies": {
     "electron": "^5.0.8",
