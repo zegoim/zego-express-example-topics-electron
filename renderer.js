@@ -40,12 +40,10 @@ let ThePublishStreamID = ""
 let ThePlayStreamID = ""
 
 initButton.onclick = () => {
-    zegoauth = require("./zegoauth")
-    zgEngine.init(
-        appID = zegoauth.appID,
-        appSign = zegoauth.appSign,
-        isTestEnv = true,
-        scenario = 0
+    const zegoauth = require("./zegoauth");
+    zgEngine.createEngine({
+        appID: zegoauth.appID,
+        scenario: 0}
     ).then(() => {
         zgEngine.setDebugVerbose(true, zgDefines.ZegoLanguage.Chinese);
     }).catch((e) => {
@@ -54,14 +52,15 @@ initButton.onclick = () => {
 }
 
 uninitButton.onclick = () => {
-    zgEngine.uninit();
+    zgEngine.destroyEngine();
 }
 
 loginButton.onclick = () => {
     TheRoomID = document.getElementById("roomIDInput").value
     TheUserID = document.getElementById("userIDInput").value
     TheUserName = document.getElementById("userNameInput").value
-    zgEngine.loginRoom(TheRoomID, { userID: TheUserID, userName: TheUserName });
+    const zegoauth = require("./zegoauth");
+    zgEngine.loginRoom(TheRoomID, { userID: TheUserID, userName: TheUserID}, config = {token: zegoauth.token});
 }
 
 logoutButton.onclick = () => {
@@ -91,7 +90,7 @@ setVideoMirrorModeButton.onclick = ()=>{
 
 startPublishButton.onclick = () => {
     ThePublishStreamID = document.getElementById("publishStreamIDInput").value
-    zgEngine.startPublishingStream(ThePublishStreamID);
+    zgEngine.startPublishingStream(ThePublishStreamID, config= {roomID: TheRoomID});
 }
 
 stopPublishButton.onclick = () => {
@@ -103,7 +102,7 @@ startPlayButton.onclick = () => {
     ThePlayStreamID = document.getElementById("playStreamIDInput").value
     zgEngine.startPlayingStream(ThePlayStreamID, {
         canvas: remoteCanvas
-    });
+    },config = {roomID: TheRoomID});
 }
 
 stopPlayButton.onclick = () => {

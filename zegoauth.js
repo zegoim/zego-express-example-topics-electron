@@ -1,4 +1,4 @@
 const appID = 123456
-const appSign = "123456"
+const token = "123456"
 
-module.exports = { appID, appSign };
+module.exports = { appID, token };
