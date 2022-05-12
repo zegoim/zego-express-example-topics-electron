@@ -1,12 +1,7 @@
 # zego-express-engine-electron-quick-start
 
-This is a minimal Electron application, showing how to use zego-express-engine-electron.
+This example demo has been migrated to:
 
-## To Use
+- English [https://docs.zegocloud.com/article/1280](https://docs.zegocloud.com/article/1280)
 
-```bash
-# Install dependencies
-npm install
-# Run the app
-npm run start
-```
+- 中文 [https://doc-zh.zego.im/article/3129](https://doc-zh.zego.im/article/3129)
